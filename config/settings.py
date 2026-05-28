@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from decouple import config
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
@@ -166,6 +166,11 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
 
+# Создаем директорию для логов
+LOGS_DIR = BASE_DIR / "logs"
+os.makedirs(LOGS_DIR, exist_ok=True)
+
+
 # Логирование
 LOGGING = {
     "version": 1,
@@ -184,7 +189,7 @@ LOGGING = {
         "file": {
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": BASE_DIR / "logs" / "django.log",
+            "filename": LOGS_DIR / "django.log",
             "formatter": "verbose",
         },
         "console": {
@@ -211,8 +216,3 @@ LOGGING = {
         },
     },
 }
-
-# Создаем директорию для логов
-import os
-
-os.makedirs(BASE_DIR / "logs", exist_ok=True)
