@@ -296,7 +296,7 @@ def toggle_post_pin_status(request, slug):
         )
 
     try:
-        from apps.subscribe.models import PinnedPost
+        from backend.apps.subscribe.models import PinnedPost
 
         # Проверяем, закреплен ли пост
         if post.is_pinned:

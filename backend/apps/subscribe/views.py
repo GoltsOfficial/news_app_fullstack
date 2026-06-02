@@ -272,9 +272,11 @@ def pinned_posts_list(request):
                 "id": post.id,
                 "title": post.title,
                 "slug": post.slug,
-                "content": post.content[:200] + "..."
-                if len(post.content) > 200
-                else post.content,
+                "content": (
+                    post.content[:200] + "..."
+                    if len(post.content) > 200
+                    else post.content
+                ),
                 "image": post.image.url if post.image else None,
                 "category": post.category.name if post.category else None,
                 "author": {

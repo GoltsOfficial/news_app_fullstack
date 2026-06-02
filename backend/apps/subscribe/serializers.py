@@ -192,12 +192,12 @@ class UserSubscriptionStatusSerializer(serializers.Serializer):
         return {
             "has_subscription": has_subscription,
             "is_active": is_active,
-            "subscription": SubscriptionSerializer(subscription).data
-            if subscription
-            else None,
-            "pinned_post": PinnedPostSerializer(pinned_post).data
-            if pinned_post
-            else None,
+            "subscription": (
+                SubscriptionSerializer(subscription).data if subscription else None
+            ),
+            "pinned_post": (
+                PinnedPostSerializer(pinned_post).data if pinned_post else None
+            ),
             "can_pin_posts": is_active,
         }
 
@@ -209,7 +209,7 @@ class PinPostSerializer(serializers.Serializer):
 
     def validate_post_id(self, value):
         """Валидация ID поста"""
-        from apps.main.models import Post
+        from backend.apps.main.models import Post
 
         try:
             post = Post.objects.get(id=value, status="published")
